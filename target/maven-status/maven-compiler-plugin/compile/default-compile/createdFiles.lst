@@ -1,0 +1,7 @@
+com\employee\Employee.class
+com\employee\EmployeeBean.class
+com\employee\resources\TestConnection.class
+com\employee\resources\DBconnection.class
+com\employee\EmployeeDAO.class
+com\employee\resources\JavaEE8Resource.class
+com\employee\JAXRSConfiguration.class

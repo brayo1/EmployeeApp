@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Employee App</title>
+</h:head>
+<h:body>
+
+<h:form id="form">
+    <p:growl id="messages" showDetail="true" />
+
+    <p:panel header="Employee Form" style="margin-bottom:20px">
+        <p:messages />
+
+        <p:inputText id="first_name" value="#{employeeBean.employee.first_name}" placeholder="First Name" required="true" label="First Name" />
+        <p:inputText id="last_name" value="#{employeeBean.employee.last_name}" placeholder="Last Name" required="true" label="Last Name" />
+        
+        <!-- ✅ Email with validation -->
+        <p:inputText id="email" value="#{employeeBean.employee.email}" placeholder="Email" required="true" label="Email"
+                     validatorMessage="Invalid email format.">
+            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+        </p:inputText>
+        
+        <p:inputText id="department" value="#{employeeBean.employee.department}" placeholder="Department" required="true" label="Department" />
+        <p:inputNumber id="salary" value="#{employeeBean.employee.salary}" placeholder="Salary" required="true" label="Salary" />
+
+        <p:commandButton value="Save" action="#{employeeBean.createOrUpdate}" update="form employeeTable messages" process="@form" />
+    </p:panel>
+
+    <p:panel header="Employee List">
+        <p:dataTable id="employeeTable" value="#{employeeBean.employeeList}" var="employee">  
+
+            <p:column headerText="ID">
+                #{employee.id}
+            </p:column>
+
+            <p:column headerText="Firsst Name">
+                #{employee.first_name}
+            </p:column>
+
+            <p:column headerText="Last Name">
+                #{employee.last_name}
+            </p:column>
+            
+            <p:column headerText="Email">
+                #{employee.email}
+            </p:column>
+            
+            <p:column headerText="Department">
+                #{employee.department}
+            </p:column>
+
+            <p:column headerText="Salary">
+                #{employee.salary}
+            </p:column>
+
+            <p:column headerText="Actions">
+                <p:commandButton value="Edit" action="#{employeeBean.editEmployee(employee)}" update="form" process="@this" />                
+                <p:commandButton  value="Delete" action="#{employeeBean.employeeIdToDelete(employee.id)}"
+                 update="form" process="@this" oncomplete="PF('confirmDialog').show();" />
+
+            </p:column>
+
+        </p:dataTable>
+    </p:panel>
+    
+    <p:confirmDialog widgetVar="confirmDialog" header="Confirm" message="Are you sure you want to delete this employee?" >
+    
+    <p:commandButton value="Yes"
+                 action="#{employeeBean.confirmDelete}"
+                 process="@this"
+                 update="form employeeTable messages"
+                 oncomplete="PF('confirmDialog').hide();" />
+        
+    <p:commandButton value="No" onclick="PF('confirmDialog').hide();" type="button" />
+    
+    </p:confirmDialog>
+
+
+</h:form>
+
+</h:body>
+</html>
