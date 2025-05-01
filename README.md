@@ -3,8 +3,7 @@
 A web-based CRUD application for managing employees, built using Java EE 8, JSF (PrimeFaces), JDBC, and deployed on Payara Server 5.
 
 ## Technologies used
-- Awesome 
-- Java EE 8 
+- Java EE 8 web 
 - PrimeFaces
 - JDBC + MySQL
 - Payara Server 5
@@ -32,7 +31,7 @@ CREATE TABLE employees (
 ```
 #### 3. Configure Database connection in DBconnection.java, use your DB username and password.
 ```bash
-  EmployeeApp\src\main\java\com\employee\resources
+  EmployeeApp\src\main\java\com\employee\resources\DBconnection.java
 ```
 
 #### 4. Add Payara Server to NetBeans
